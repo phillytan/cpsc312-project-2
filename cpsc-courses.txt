@@ -16,7 +16,7 @@ Analysis of increasingly complex algorithmic problems, using a modern programmin
 Prerequisite: CPSC 103
 CPSC 210 (4) Software Construction
 Design, development, and analysis of robust software components. Topics such as software design, computational models, data structures, debugging, and testing. [3-2-0]
-Prerequisite: One of CPSC 107, CPSC 110.
+Prerequisite: CPSC 110.
 CPSC 213 (4) Introduction to Computer Systems
 Software architecture, operating systems, and I/O architectures. Relationships between application software, operating systems, and computing hardware; critical sections, deadlock avoidance, and performance; principles and operation of disks and networks. [3-3-0]
 Prerequisite: All of CPSC 121, CPSC 210.
