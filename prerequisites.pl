@@ -22,27 +22,27 @@ course('CPSC 330', 3, ['CPSC 210'], 'Applied Machine Learning', 'https://courses
 course('CPSC 340', 3, ['CPSC 221', 'MATH 221', 'MATH 200'], 'Machine Learning and Data Mining', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=340').
 course('CPSC 344', 3, ['CPSC 210'], 'Introduction to Human Computer Interaction Methods', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=344').
 course('CPSC 368', 3, ['CPSC 210'], 'Databases in Data Science', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=368').
-course('CPSC 402', 3, ['CPSC 302'], 'Numerical Linear Algebra', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=402').
-course('CPSC 404', 3, ['CPSC 304', 'CPSC 213'], 'Advanced Relational Databases', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=404').
-course('CPSC 406', 3, ['CPSC 302'], 'Computational Optimization', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=406').
-course('CPSC 410', 3, ['CPSC 310'], 'Advanced Software Engineering', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=410').
-course('CPSC 411', 3, ['CPSC 213', 'CPSC 221', 'CPSC 311'], 'Introduction to Compiler Construction', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=411').
-course('CPSC 415', 3, ['CPSC 313'], 'Advanced Operating Systems', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=415').
-course('CPSC 416', 3, ['CPSC 313', 'CPEN 331', 'CPSC 317'], 'Distributed Systems', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=416').
-course('CPSC 417', 3, ['CPSC 313', 'CPSC 317'], 'Computer Networking', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=417').
-course('CPSC 418', 3, ['CPSC 320', 'CPSC 313'], 'Parallel Computation', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=418').
-course('CPSC 420', 3, ['CPSC 320'], 'Advanced Algorithms Design and Analysis', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=420').
-course('CPSC 421', 3, ['CPSC 221'], 'Introduction to Theory of Computing', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=421').
-course('CPSC 422', 3, ['CPSC 322'], 'Intelligent Systems', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=422').
-course('CPSC 424', 3, ['CPSC 320', 'MATH 221', 'MATH 200'], 'Geometric Modelling', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=424').
-course('CPSC 425', 3, ['CPSC 221', 'MATH 200', 'MATH 221'], 'Computer Vision', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=425').
-course('CPSC 426', 3, ['CPSC 314'], 'Computer Animation', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=426').
-course('CPSC 427', 3, ['CPSC 221', 'MATH 200', 'MATH 221'], 'Video Game Programming', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=427').
-course('CPSC 430', 3, [], 'Computers and Society', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=430').
-course('CPSC 440', 3, ['CPSC 320', 'CPSC 340'], 'Advanced Machine Learning', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=440').
-course('CPSC 444', 3, ['CPSC 344'], 'Advanced Methods for Human Computer Interaction', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=444').
-course('CPSC 447', 3, ['CPSC 310'], 'Introduction to Visualization', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=447').
-course('CPSC 455', 3, ['CPSC 310'], 'Applied Industry Practices', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=455').
+course('CPSC 402', 4, ['CPSC 302'], 'Numerical Linear Algebra', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=402').
+course('CPSC 404', 4, ['CPSC 304', 'CPSC 213'], 'Advanced Relational Databases', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=404').
+course('CPSC 406', 4, ['CPSC 302'], 'Computational Optimization', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=406').
+course('CPSC 410', 4, ['CPSC 310'], 'Advanced Software Engineering', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=410').
+course('CPSC 411', 4, ['CPSC 213', 'CPSC 221', 'CPSC 311'], 'Introduction to Compiler Construction', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=411').
+course('CPSC 415', 4, ['CPSC 313'], 'Advanced Operating Systems', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=415').
+course('CPSC 416', 4, ['CPSC 313', 'CPEN 331', 'CPSC 317'], 'Distributed Systems', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=416').
+course('CPSC 417', 4, ['CPSC 313', 'CPSC 317'], 'Computer Networking', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=417').
+course('CPSC 418', 4, ['CPSC 320', 'CPSC 313'], 'Parallel Computation', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=418').
+course('CPSC 420', 4, ['CPSC 320'], 'Advanced Algorithms Design and Analysis', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=420').
+course('CPSC 421', 4, ['CPSC 221'], 'Introduction to Theory of Computing', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=421').
+course('CPSC 422', 4, ['CPSC 322'], 'Intelligent Systems', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=422').
+course('CPSC 424', 4, ['CPSC 320', 'MATH 221', 'MATH 200'], 'Geometric Modelling', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=424').
+course('CPSC 425', 4, ['CPSC 221', 'MATH 200', 'MATH 221'], 'Computer Vision', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=425').
+course('CPSC 426', 4, ['CPSC 314'], 'Computer Animation', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=426').
+course('CPSC 427', 4, ['CPSC 221', 'MATH 200', 'MATH 221'], 'Video Game Programming', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=427').
+course('CPSC 430', 4, [], 'Computers and Society', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=430').
+course('CPSC 440', 4, ['CPSC 320', 'CPSC 340'], 'Advanced Machine Learning', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=440').
+course('CPSC 444', 4, ['CPSC 344'], 'Advanced Methods for Human Computer Interaction', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=444').
+course('CPSC 447', 4, ['CPSC 310'], 'Introduction to Visualization', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=447').
+course('CPSC 455', 4, ['CPSC 310'], 'Applied Industry Practices', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=455').
 
 % Return true if a course is a prerequisite of another course
 % is_prepreq('CPSC 110', 'CPSC 210').
