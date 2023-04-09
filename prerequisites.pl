@@ -45,13 +45,14 @@ course('CPSC 447', 3, ['CPSC 310'], 'Introduction to Visualization').
 course('CPSC 455', 3, ['CPSC 310'], 'Applied Industry Practices').
 
 % Return true if a course is a prerequisite of another course
+% is_prepreq('CPSC 110', 'CPSC 210').
 is_prereq(Prereq, Course) :- course(Course, _, Prereqs, _), member(Prereq, Prereqs).
-
 
 % TODO: 1. Create a function that takes in a list of courses and iterates through all existing courses and outputs all the courses that the person CAN take. (Eligible courses)
 
 % TODO: 2. Given all the courses a person can take (output of 1) (filter courses by year level)
-courses_with_level(Level) :- course(_, Level, _, _).
+% courses_with_level(1, Courses).
+courses_with_level(Level, Course) :- course(Course, Level, _, _).
 
 % TODO: 3. For any specified course, list prerequisites
 
