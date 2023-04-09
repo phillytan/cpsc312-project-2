@@ -49,6 +49,17 @@ course('CPSC 455', 4, ['CPSC 310'], 'Applied Industry Practices', 'https://cours
 is_prereq(Prereq, Course) :- course(Course, _, Prereqs, _, _), member(Prereq, Prereqs).
 
 % TODO: 1. Create a function that takes in a list of courses and iterates through all existing courses and outputs all the courses that the person CAN take. (Eligible courses)
+% base case:
+eligible_courses([], _, []).
+% if the prereqs are satisfied, add the course to the list of eligible courses
+eligible_courses([Course | Rest], Taken, [Course | EligibleRest]) :-
+course(Course, _, Prereqs, _, _),   
+subset(Prereqs, Taken),
+not(member(Course, Taken)),
+eligible_courses(Rest, [Course | Taken], EligibleRest).
+% if the prerequisites are not satisfied, skip this course and move on to the next one
+eligible_courses([_ | Rest], Taken, Eligible) :-
+eligible_courses(Rest, Taken, Eligible).
 
 % TODO: 2. Given all the courses a person can take (output of 1) (filter courses by year level)
 % courses_with_level(1, Courses, SSCURL).
