@@ -6,10 +6,13 @@ course('Systematic Program Design', 'CPSC', 1, 107, ['CPSC 103'], []).
 course('Introduction to Systematic Program Design', 'CPSC', 1, 103, [], []).
 
 % Return true if a course is a prerequisite of another course
-is_prereq(Prereq, Course) :- course(Course, _, _, Prereqs, _), member(Prereq, Prereqs).
+is_prereq(Prereq, Course) :- course(Course, _, _, Prereqs, _, _), member(Prereq, Prereqs).
 
 % Return true if a course is a corequisite of another course
-is_coreq(Coreq, Course) :- course(Course, _, _, _, Coreqs), member(Coreq, Coreqs).
+is_coreq(Coreq, Course) :- course(Course, _, _, _, Coreqs, _), member(Coreq, Coreqs).
 
 % TODO: 1. Create a function that takes in a list of courses and iterates through all existing courses and outputs all the courses that the person CAN take. (Eligible courses)
 % TODO: 2. Given all the courses a person can take (output of 1) (filter courses by year level)
+courses_with_level(Level) :- course(_, _, Level, _, _, _).
+% TODO: 3. For any specified course, list prerequisites
+
