@@ -45,7 +45,7 @@ course('CPSC 447', 4, ['CPSC 310'], 'Introduction to Visualization', 'https://co
 course('CPSC 455', 4, ['CPSC 310'], 'Applied Industry Practices', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=455').
 
 % List of all course strings
-all_courses = ['CPSC 100', 'CPSC 103', 'CPSC 107', 'CPSC 110', 'CPSC 121', 'CPSC 203', 'CPSC 210', 'CPSC 213', 'CPSC 221', 'CPSC 304', 'CPSC 310', 'CPSC 311', 'CPSC 312', 'CPSC 313', 'CPSC 314', 'CPSC 317', 'CPSC 320', 'CPSC 322', 'CPSC 330', 'CPSC 340', 'CPSC 344', 'CPSC 368', 'CPSC 402', 'CPSC 404', 'CPSC 406', 'CPSC 410', 'CPSC 411', 'CPSC 415', 'CPSC 416', 'CPSC 417', 'CPSC 418', 'CPSC 420', 'CPSC 421', 'CPSC 422', 'CPSC 424', 'CPSC 425', 'CPSC 426', 'CPSC 427', 'CPSC 430', 'CPSC 440', 'CPSC 444', 'CPSC 447', 'CPSC 455']
+all_courses(['CPSC 100', 'CPSC 103', 'CPSC 107', 'CPSC 110', 'CPSC 121', 'CPSC 203', 'CPSC 210', 'CPSC 213', 'CPSC 221', 'CPSC 304', 'CPSC 310', 'CPSC 311', 'CPSC 312', 'CPSC 313', 'CPSC 314', 'CPSC 317', 'CPSC 320', 'CPSC 322', 'CPSC 330', 'CPSC 340', 'CPSC 344', 'CPSC 368', 'CPSC 402', 'CPSC 404', 'CPSC 406', 'CPSC 410', 'CPSC 411', 'CPSC 415', 'CPSC 416', 'CPSC 417', 'CPSC 418', 'CPSC 420', 'CPSC 421', 'CPSC 422', 'CPSC 424', 'CPSC 425', 'CPSC 426', 'CPSC 427', 'CPSC 430', 'CPSC 440', 'CPSC 444', 'CPSC 447', 'CPSC 455']).
 
 % Return true if a course is a prerequisite of another course
 % is_prepreq('CPSC 110', 'CPSC 210').
