@@ -66,6 +66,8 @@ eligible_courses(Rest, [Course | Taken], EligibleRest).
 eligible_courses([_ | Rest], Taken, Eligible) :-
 eligible_courses(Rest, Taken, Eligible).
 
+% another_function(_) :- all_courses(ALL_COURSES), eligible_courses(ALL_COURSES).
+
 % TODO: 2. Given all the courses a person can take (output of 1) (filter courses by year level)
 % courses_with_level(1, Courses, SSCURL).
 courses_with_level(Level, Course, SSCURL) :- course(Course, Level, _, _, SSCURL).
