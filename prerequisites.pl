@@ -55,18 +55,18 @@ is_prereq(Prereq, Course) :- course(Course, _, Prereqs, _, _), member(Prereq, Pr
 % eligible_courses(all, taken, eligible)
 % eligible_courses(all_courses, [], eligible)
 % base case:
-eligible_courses([], _, []).
+eligible_courses([], _, '').
 % if the prereqs are satisfied, add the course to the list of eligible courses
-eligible_courses([Course | Rest], Taken, [Course | EligibleRest]) :-
+eligible_courses([Course | Rest], Taken, Course) :-
 course(Course, _, Prereqs, _, _),   
 subset(Prereqs, Taken),
-not(member(Course, Taken)),
-eligible_courses(Rest, [Course | Taken], EligibleRest).
+not(member(Course, Taken)).
 % if the prerequisites are not satisfied, skip this course and move on to the next one
 eligible_courses([_ | Rest], Taken, Eligible) :-
 eligible_courses(Rest, Taken, Eligible).
 
-call_eligible(Taken, Eligible) :- all_courses(ALL_COURSES), eligible_courses(ALL_COURSES, Taken, Eligible).
+% call_eligible(['CPSC 110', 'CPSC 121', 'CPSC 210'], CourseName, Credits, Prereqs, Name, SSCURL).
+call_eligible(Taken, CourseCode, Credits, Prereqs, Name, SSCURL) :- all_courses(ALL_COURSES), eligible_courses(ALL_COURSES, Taken, CourseCode), course(CourseCode, Credits, Prereqs, Name, SSCURL).
 
 % TODO: 2. Given all the courses a person can take (output of 1) (filter courses by year level)
 % courses_with_level(1, Courses, SSCURL).
