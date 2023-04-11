@@ -14,7 +14,7 @@ course('CPSC 310', 3, ['CPSC 213', 'CPSC 221'], 'Introduction to Software Engine
 course('CPSC 311', 3, ['CPSC 210'], 'Definition of Programming Languages', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=311').
 course('CPSC 312', 3, ['CPSC 210'], 'Functional and Logic Programming', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=312').
 course('CPSC 313', 3, ['CPSC 213', 'CPSC 221'], 'Computer Hardware and Operating Systems', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=313').
-course('CPSC 314', 3, ['CPSC 221'], 'Computer Graphics', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=314').
+course('CPSC 314', 3, ['CPSC 221', 'MATH 200', 'MATH 221'], 'Computer Graphics', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=314').
 course('CPSC 317', 3, ['CPSC 213', 'CPSC 221'], 'Internet Computing', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=317').
 course('CPSC 320', 3, ['CPSC 221'], 'Intermediate Algorithm Design and Analysis', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=320').
 course('CPSC 322', 3, ['CPSC 221'], 'Introduction to Artificial Intelligence', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=322').
@@ -44,36 +44,45 @@ course('CPSC 444', 4, ['CPSC 344'], 'Advanced Methods for Human Computer Interac
 course('CPSC 447', 4, ['CPSC 310'], 'Introduction to Visualization', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=447').
 course('CPSC 455', 4, ['CPSC 310'], 'Applied Industry Practices', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=455').
 
-start :- welcome.
-
-welcome :- 
+start :- 
     write('Hello! Welcome to CPSC Course Recommender :) You can ask the following questions:'),
     nl,
-    write("\tWhat are the required courses in year X? (X is a number in the range [1-4])"),
+    write('\tWhat are the required courses in year X? (X is a number in the range [1-4])'),
     nl,
-    write("\tWhich courses am I eligible to take?"),
+    write('\tWhich courses am I eligible to take?'),
     nl,
-    write("\tList all year X courses (X is a number in the range [1-4])"),
+    write('\tList all year X courses (X is a number in the range [1-4])'),
     nl,
-    write("\tList all required courses"),
+    write('\tList all required courses'),
     nl,
-    write("\tWhat are the prerequisites for CPSC XXX?"),
+    write('\tWhat are the prerequisites for \'CPSC XXX?\' (include single quotations around course code)'),
     nl,
+    write('\tWhat is the SSC URL for [\'CPSC XXX?\']? (include square brackets and single quotations around course code)'),
     query,
     nl.
 
 query :-
     nl,
+    write('Please enter the CPSC and MATH courses you have taken. Use the example format - [\'CPSC 121\', \'CPSC 110\', \'MATH 200\', \'CPSC 210\']'),
+    nl,
     flush_output(current_output),
-    readln(L),
-    question(L, CourseCode, Name, SSCURL),
-    write(CourseCode + ", " + Name + ", " + SSCURL).
+    readln(Taken),
+    nl,
+    write('Ask a question: '),
+    nl,
+    flush_output(current_output),
+    readln(Line),
+    question(Taken, Line, CourseCode, Name, SSCURL),
+    nl,
+    write(CourseCode + ', ' + Name + ', ' + SSCURL).
     
 
-question(['What',are,the,required,courses,in,year,X,?], CourseCode, Name, SSCURL) :- required_by_year(X, CourseCode, Name, SSCURL).
-question(['List',all,year,X,courses], CourseCode, Name, SSCURL) :- courses_with_level(X, CourseCode, Name, SSCURL).
-question(['What',are,the,prerequisites,for,X], CourseCode, Name, SSCURL) :- course_prerequisites(X, Prereqs), code_to_object(Prereqs, CourseCode, Name, SSCURL).
-question(['List',all,required,courses], CourseCode, Name, SSCURL) :- required(CourseCode), course(CourseCode, _, _, Name, SSCURL).
+question(Taken, ['What',are,the,required,courses,in,year,X,?], CourseCode, Name, SSCURL) :- required_by_year(X, CourseCode, Name, SSCURL).
+question(Taken, ['List',all,year,X,courses], CourseCode, Name, SSCURL) :- courses_with_level(X, CourseCode, Name, SSCURL).
+question(Taken, ['What',are,the,prerequisites,for,X], CourseCode, Name, SSCURL) :- course_prerequisites(X, Prereqs), code_to_object(Prereqs, CourseCode, Name, SSCURL).
+question(Taken, ['List',all,required,courses], CourseCode, Name, SSCURL) :- required(CourseCode), course(CourseCode, _, _, Name, SSCURL).
+question(Taken, ['Which',courses,am,I,eligible,for,?], CourseCode, Name, SSCURL) :- call_eligible(Taken, CourseCode, Name, SSCURL).
+question(Taken, ['What',is, the,SSC,URL,for,X,?], CourseCode, Name, SSCURL) :- code_to_object(X, CourseCode, Name, SSCURL).
 
 
 % List of all course strings
@@ -110,15 +119,17 @@ course_prerequisites(Course, Prereqs) :- course(Course, _, Prereqs, _, _).
 
 % Given list of courses (prereq list) output the SSC URL and title along with the course code
 code_to_object([CourseCode|Rest], CourseCode, Name, SSCURL) :-
-    course(CourseCode, _, _, Name, SSCURL),
-    code_to_object(Rest, _, _, _).
+    course(CourseCode, _, _, Name, SSCURL).
+% Keep going
+code_to_object([_|Rest], CourseCode, Name, SSCURL) :-
+    code_to_object(Rest, CourseCode, Name, SSCURL).
 % Base case: empty list
-code_to_object([], _, _, _).
+code_to_object([],_,_,_).
 
 % TODO 4. Given a year level, show all required courses
 required_by_year(Level, CourseCode, Name, SSCURL) :- required(CourseCode), course(CourseCode, Level, Prereqs, Name, SSCURL).
 
-% required(X) is true if a course is required for a computer science major
+% required(X) is true if a CPSC course is required for a computer science major
 required('CPSC 110').
 required('CPSC 121').
 required('CPSC 210').
