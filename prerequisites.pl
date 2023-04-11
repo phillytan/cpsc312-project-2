@@ -44,26 +44,29 @@ course('CPSC 444', 4, ['CPSC 344'], 'Advanced Methods for Human Computer Interac
 course('CPSC 447', 4, ['CPSC 310'], 'Introduction to Visualization', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=447').
 course('CPSC 455', 4, ['CPSC 310'], 'Applied Industry Practices', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=455').
 
-start :- 
+go :- 
     write('Hello! Welcome to CPSC Course Recommender :) You can ask the following questions:'),
     nl,
-    write('\tWhat are the required courses in year X? (X is a number in the range [1-4])'),
+    write('\t- What are the required courses in year X? (X is a number in the range [1-4])'),
     nl,
-    write('\tWhich courses am I eligible to take?'),
+    write('\t- Which courses am I eligible to take?'),
     nl,
-    write('\tList all year X courses (X is a number in the range [1-4])'),
+    write('\t- List all year X courses (X is a number in the range [1-4])'),
     nl,
-    write('\tList all required courses'),
+    write('\t- List all required CPSC courses'),
     nl,
-    write('\tWhat are the prerequisites for \'CPSC XXX?\' (include single quotations around course code)'),
+    write('\t- What are the prerequisites for \'CPSC XXX?\'? (include single quotations around course code)'),
     nl,
-    write('\tWhat is the SSC URL for [\'CPSC XXX?\']? (include square brackets and single quotations around course code)'),
+    write('\t- List the SSC URLS for: [\'CPSC XXX\', \'CPSC YYY\']? (use list format shown with square brackets and single quotes)'),
+    nl,
     query,
     nl.
 
 query :-
     nl,
     write('Please enter the CPSC and MATH courses you have taken. Use the example format - [\'CPSC 121\', \'CPSC 110\', \'MATH 200\', \'CPSC 210\']'),
+    nl,
+    write('Press enter to skip (if you are not interested in finding courses you are eligible to take)'),
     nl,
     flush_output(current_output),
     readln(Taken),
@@ -77,13 +80,14 @@ query :-
     write(CourseCode + ', ' + Name + ', ' + SSCURL).
     
 
+% Questions the users can ask and their corresponding queries
 question(Taken, ['What',are,the,required,courses,in,year,X,?], CourseCode, Name, SSCURL) :- required_by_year(X, CourseCode, Name, SSCURL).
 question(Taken, ['List',all,year,X,courses], CourseCode, Name, SSCURL) :- courses_with_level(X, CourseCode, Name, SSCURL).
-question(Taken, ['What',are,the,prerequisites,for,X], CourseCode, Name, SSCURL) :- course_prerequisites(X, Prereqs), code_to_object(Prereqs, CourseCode, Name, SSCURL).
-question(Taken, ['List',all,required,courses], CourseCode, Name, SSCURL) :- required(CourseCode), course(CourseCode, _, _, Name, SSCURL).
+question(Taken, ['List',all,required,CPSC,courses], CourseCode, Name, SSCURL) :- required(CourseCode), course(CourseCode, _, _, Name, SSCURL).
 question(Taken, ['Which',courses,am,I,eligible,for,?], CourseCode, Name, SSCURL) :- call_eligible(Taken, CourseCode, Name, SSCURL).
-question(Taken, ['What',is, the,SSC,URL,for,X,?], CourseCode, Name, SSCURL) :- code_to_object(X, CourseCode, Name, SSCURL).
-
+% Not working
+question(Taken, ['What',are,the,prerequisites,for,X,?], CourseCode, Name, SSCURL) :- course_prerequisites(X, Prereqs), code_to_object(Prereqs, _, Name, SSCURL).
+question(Taken, ['List',the,SSC,URLS,for,:,X], CourseCode, Name, SSCURL) :- code_to_object(X, CourseCode, Name, SSCURL).
 
 % List of all course strings
 all_courses(['CPSC 100', 'CPSC 103', 'CPSC 107', 'CPSC 110', 'CPSC 121', 'CPSC 203', 'CPSC 210', 'CPSC 213', 'CPSC 221', 'CPSC 304', 'CPSC 310', 'CPSC 311', 'CPSC 312', 'CPSC 313', 'CPSC 314', 'CPSC 317', 'CPSC 320', 'CPSC 322', 'CPSC 330', 'CPSC 340', 'CPSC 344', 'CPSC 368', 'CPSC 402', 'CPSC 404', 'CPSC 406', 'CPSC 410', 'CPSC 411', 'CPSC 415', 'CPSC 416', 'CPSC 417', 'CPSC 418', 'CPSC 420', 'CPSC 421', 'CPSC 422', 'CPSC 424', 'CPSC 425', 'CPSC 426', 'CPSC 427', 'CPSC 430', 'CPSC 440', 'CPSC 444', 'CPSC 447', 'CPSC 455']).
