@@ -1,5 +1,5 @@
-% These definitions presume basic courses such as math are taken. 
-% Course(course, level, prerequisites, name, sscurl).
+% These definitions presume basic courses such as MATH 100/101 are taken. 
+% course(Course, Level, Prerequisites, Name, SSCURL).
 course('CPSC 100', 1, [], 'Computational Thinking', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=100').
 course('CPSC 103', 1, [], 'Introduction to Systematic Program Design', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=103').
 course('CPSC 107', 1, ['CPSC 103'], 'Systematic Program Design', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=107').
@@ -44,6 +44,7 @@ course('CPSC 444', 4, ['CPSC 344'], 'Advanced Methods for Human Computer Interac
 course('CPSC 447', 4, ['CPSC 310'], 'Introduction to Visualization', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=447').
 course('CPSC 455', 4, ['CPSC 310'], 'Applied Industry Practices', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=455').
 
+% Functionality to ask proper questions
 go :- 
     write('Hello! Welcome to CPSC Course Recommender :) You can ask the following questions:'),
     nl,
@@ -57,7 +58,7 @@ go :-
     nl,
     write('\t- What are the prerequisites for \'CPSC XXX?\'? (include single quotations around course code)'),
     nl,
-    write('\t- List the SSC URLS for: [\'CPSC XXX\', \'CPSC YYY\']? (use list format shown with square brackets and single quotes)'),
+    write('\t- List the SSC URLs for: [\'CPSC XXX\', \'CPSC YYY\']? (use list format shown with square brackets and single quotes)'),
     nl,
     query,
     nl.
@@ -71,7 +72,7 @@ query :-
     flush_output(current_output),
     readln(Taken),
     nl,
-    write('Ask a question: '),
+    write('Ask a question from the list above: '),
     nl,
     flush_output(current_output),
     readln(Line),
@@ -81,57 +82,13 @@ query :-
     
 
 % Questions the users can ask and their corresponding queries
-question(Taken, ['What',are,the,required,courses,in,year,X,?], CourseCode, Name, SSCURL) :- required_by_year(X, CourseCode, Name, SSCURL).
-question(Taken, ['List',all,year,X,courses], CourseCode, Name, SSCURL) :- courses_with_level(X, CourseCode, Name, SSCURL).
-question(Taken, ['List',all,required,CPSC,courses], CourseCode, Name, SSCURL) :- required(CourseCode), course(CourseCode, _, _, Name, SSCURL).
-question(Taken, ['Which',courses,am,I,eligible,for,?], CourseCode, Name, SSCURL) :- call_eligible(Taken, CourseCode, Name, SSCURL).
+question(_, ['What',are,the,required,courses,in,year,X,?], CourseCode, Name, SSCURL) :- required_by_year(X, CourseCode, Name, SSCURL).
+question(_, ['List',all,year,X,courses], CourseCode, Name, SSCURL) :- courses_with_level(X, CourseCode, Name, SSCURL).
+question(_, ['List',all,required,'CPSC',courses], CourseCode, Name, SSCURL) :- required(CourseCode), course(CourseCode, _, _, Name, SSCURL).
+question(Taken, ['Which',courses,am,'I',eligible,for,?], CourseCode, Name, SSCURL) :- call_eligible(Taken, CourseCode, Name, SSCURL).
 % Not working
-question(Taken, ['What',are,the,prerequisites,for,X,?], CourseCode, Name, SSCURL) :- course_prerequisites(X, Prereqs), code_to_object(Prereqs, _, Name, SSCURL).
-question(Taken, ['List',the,SSC,URLS,for,:,X], CourseCode, Name, SSCURL) :- code_to_object(X, CourseCode, Name, SSCURL).
-
-% List of all course strings
-all_courses(['CPSC 100', 'CPSC 103', 'CPSC 107', 'CPSC 110', 'CPSC 121', 'CPSC 203', 'CPSC 210', 'CPSC 213', 'CPSC 221', 'CPSC 304', 'CPSC 310', 'CPSC 311', 'CPSC 312', 'CPSC 313', 'CPSC 314', 'CPSC 317', 'CPSC 320', 'CPSC 322', 'CPSC 330', 'CPSC 340', 'CPSC 344', 'CPSC 368', 'CPSC 402', 'CPSC 404', 'CPSC 406', 'CPSC 410', 'CPSC 411', 'CPSC 415', 'CPSC 416', 'CPSC 417', 'CPSC 418', 'CPSC 420', 'CPSC 421', 'CPSC 422', 'CPSC 424', 'CPSC 425', 'CPSC 426', 'CPSC 427', 'CPSC 430', 'CPSC 440', 'CPSC 444', 'CPSC 447', 'CPSC 455']).
-
-% Return true if a course is a prerequisite of another course
-% is_prepreq('CPSC 110', 'CPSC 210').
-is_prereq(Prereq, Course) :- course(Course, _, Prereqs, _, _), member(Prereq, Prereqs).
-
-% TODO: 1. Create a function that takes in a list of courses and iterates through all existing courses and outputs all the courses that the person CAN take. (Eligible courses)
-% eligible_courses(all, taken, eligible)
-% eligible_courses(all_courses, [], eligible)
-% base case:
-eligible_courses([], _, '').
-% if the prereqs are satisfied, add the course to the list of eligible courses
-eligible_courses([Course | Rest], Taken, Course) :-
-course(Course, _, Prereqs, _, _),   
-subset(Prereqs, Taken),
-not(member(Course, Taken)).
-% if the prerequisites are not satisfied, skip this course and move on to the next one
-eligible_courses([_ | Rest], Taken, Eligible) :-
-eligible_courses(Rest, Taken, Eligible).
-
-% call_eligible(['CPSC 110', 'CPSC 121', 'CPSC 210'], CourseName, Credits, Prereqs, Name, SSCURL).
-call_eligible(Taken, CourseCode, Name, SSCURL) :- all_courses(ALL_COURSES), eligible_courses(ALL_COURSES, Taken, CourseCode), course(CourseCode, _, _, Name, SSCURL).
-
-% TODO: 2. Given all the courses a person can take (output of 1) (filter courses by year level)
-% courses_with_level(1, Courses, SSCURL).
-courses_with_level(Level, Course, Name, SSCURL) :- course(Course, Level, _, Name, SSCURL).
-
-% TODO: 3. For any specified course, list prerequisites
-% course_prerequisites('CPSC 440', Prereqs).
-course_prerequisites(Course, Prereqs) :- course(Course, _, Prereqs, _, _).
-
-% Given list of courses (prereq list) output the SSC URL and title along with the course code
-code_to_object([CourseCode|Rest], CourseCode, Name, SSCURL) :-
-    course(CourseCode, _, _, Name, SSCURL).
-% Keep going
-code_to_object([_|Rest], CourseCode, Name, SSCURL) :-
-    code_to_object(Rest, CourseCode, Name, SSCURL).
-% Base case: empty list
-code_to_object([],_,_,_).
-
-% TODO 4. Given a year level, show all required courses
-required_by_year(Level, CourseCode, Name, SSCURL) :- required(CourseCode), course(CourseCode, Level, Prereqs, Name, SSCURL).
+question(_, ['What',are,the,prerequisites,for,X,?], CourseCode, Name, SSCURL) :- course_prerequisites(X, Prereqs), code_to_object(Prereqs, CourseCode, Name, SSCURL).
+question(_, ['List',the,'SSC','URLs',for,:,X], CourseCode, Name, SSCURL) :- code_to_object(X, CourseCode, Name, SSCURL).
 
 % required(X) is true if a CPSC course is required for a computer science major
 required('CPSC 110').
@@ -142,3 +99,49 @@ required('CPSC 221').
 required('CPSC 310').
 required('CPSC 313').
 required('CPSC 320').
+
+% List of all course strings
+all_courses(['CPSC 100', 'CPSC 103', 'CPSC 107', 'CPSC 110', 'CPSC 121', 'CPSC 203', 'CPSC 210', 'CPSC 213', 'CPSC 221', 'CPSC 304', 'CPSC 310', 'CPSC 311', 'CPSC 312', 'CPSC 313', 'CPSC 314', 'CPSC 317', 'CPSC 320', 'CPSC 322', 'CPSC 330', 'CPSC 340', 'CPSC 344', 'CPSC 368', 'CPSC 402', 'CPSC 404', 'CPSC 406', 'CPSC 410', 'CPSC 411', 'CPSC 415', 'CPSC 416', 'CPSC 417', 'CPSC 418', 'CPSC 420', 'CPSC 421', 'CPSC 422', 'CPSC 424', 'CPSC 425', 'CPSC 426', 'CPSC 427', 'CPSC 430', 'CPSC 440', 'CPSC 444', 'CPSC 447', 'CPSC 455']).
+
+% Return true if a course is a prerequisite of another course
+% is_prepreq('CPSC 110', 'CPSC 210').
+is_prereq(Prereq, Course) :- course(Course, _, Prereqs, _, _), member(Prereq, Prereqs).
+
+% PREDICATES:
+
+% TODO: 1. Create a function that takes in a list of courses and iterates through all existing courses and outputs all the courses that the person CAN take. (Eligible courses)
+% Example query: call_eligible(['CPSC 110', 'CPSC 121', 'CPSC 210'], CourseName, Name, SSCURL).
+call_eligible(Taken, CourseCode, Name, SSCURL) :- all_courses(ALL_COURSES), eligible_courses(ALL_COURSES, Taken, CourseCode), course(CourseCode, _, _, Name, SSCURL).
+
+% base case:
+eligible_courses([], _, '').
+% if the prereqs are satisfied, add the course to the list of eligible courses
+eligible_courses([Course | _], Taken, Course) :-
+course(Course, _, Prereqs, _, _),   
+subset(Prereqs, Taken),
+not(member(Course, Taken)).
+% if the prerequisites are not satisfied, skip this course and move on to the next one
+eligible_courses([_ | Rest], Taken, Eligible) :-
+eligible_courses(Rest, Taken, Eligible).
+
+% TODO: 2. Given all the courses a person can take (output of 1) (filter courses by year level)
+% Example query: courses_with_level(1, Courses, SSCURL).
+courses_with_level(Level, Course, Name, SSCURL) :- course(Course, Level, _, Name, SSCURL).
+
+% TODO: 3. For any specified course, list prerequisites
+% Example query: course_prerequisites('CPSC 440', Prereqs).
+course_prerequisites(Course, Prereqs) :- course(Course, _, Prereqs, _, _).
+
+% Given list of courses (prereq list) output the SSC URL and title along with the course code
+% Example query: code_to_object(['CPSC 121, CPSC 210'], CourseCode, Name, SSCURL)
+code_to_object([CourseCode|_], CourseCode, Name, SSCURL) :-
+    course(CourseCode, _, _, Name, SSCURL).
+% Keep going
+code_to_object([_|Rest], CourseCode, Name, SSCURL) :-
+    code_to_object(Rest, CourseCode, Name, SSCURL).
+% Base case: empty list
+code_to_object([],_,_,_).
+
+% TODO 4. Given a year level, show all required courses
+% Example query: required_by_year(1, CourseCode, Name, SSCURL)
+required_by_year(Level, CourseCode, Name, SSCURL) :- required(CourseCode), course(CourseCode, Level, _, Name, SSCURL).
