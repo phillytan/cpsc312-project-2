@@ -43,6 +43,9 @@ course('CPSC 440', 4, ['CPSC 320', 'CPSC 340'], 'Advanced Machine Learning', 'ht
 course('CPSC 444', 4, ['CPSC 344'], 'Advanced Methods for Human Computer Interaction', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=444').
 course('CPSC 447', 4, ['CPSC 310'], 'Introduction to Visualization', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=447').
 course('CPSC 455', 4, ['CPSC 310'], 'Applied Industry Practices', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=455').
+% MATH courses added since prereqs for many CPSC courses
+course('MATH 200', 2, [], 'Calculus III', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=MATH&course=200').
+course('MATH 221', 2, [], 'Matrix Algebra', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=MATH&course=221').
 
 % INSTRUCTIONS: to ask the program English questions, run "go." and follow the prompts listed in the command line. You can also write queries following the samples listed above each predicate.
 % Functionality to ask proper questions
@@ -58,7 +61,7 @@ go :-
     write('\t- List all required CPSC courses'),
     nl, nl,
     write('\t- What are the prerequisites for CPSC XXX?'),
-    nl, nl,
+    nl,
     query,
     nl.
 
