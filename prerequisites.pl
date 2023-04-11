@@ -44,22 +44,21 @@ course('CPSC 444', 4, ['CPSC 344'], 'Advanced Methods for Human Computer Interac
 course('CPSC 447', 4, ['CPSC 310'], 'Introduction to Visualization', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=447').
 course('CPSC 455', 4, ['CPSC 310'], 'Applied Industry Practices', 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=455').
 
+% INSTRUCTIONS: to ask the program English questions, run "go." and follow the prompts listed in the command line. You can also write queries following the samples listed above each predicate.
 % Functionality to ask proper questions
 go :- 
     write('Hello! Welcome to CPSC Course Recommender :) You can ask the following questions:'),
-    nl,
+    nl, nl,
     write('\t- What are the required courses in year X? (X is a number in the range [1-4])'),
-    nl,
+    nl, nl,
     write('\t- Which courses am I eligible to take?'),
-    nl,
+    nl, nl,
     write('\t- List all year X courses (X is a number in the range [1-4])'),
-    nl,
+    nl, nl,
     write('\t- List all required CPSC courses'),
-    nl,
-    write('\t- What are the prerequisites for \'CPSC XXX?\'? (include single quotations around course code)'),
-    nl,
-    write('\t- List the SSC URLs for: [\'CPSC XXX\', \'CPSC YYY\']? (use list format shown with square brackets and single quotes)'),
-    nl,
+    nl, nl,
+    write('\t- What are the prerequisites for CPSC XXX?'),
+    nl, nl,
     query,
     nl.
 
@@ -86,9 +85,7 @@ question(_, ['What',are,the,required,courses,in,year,X,?], CourseCode, Name, SSC
 question(_, ['List',all,year,X,courses], CourseCode, Name, SSCURL) :- courses_with_level(X, CourseCode, Name, SSCURL).
 question(_, ['List',all,required,'CPSC',courses], CourseCode, Name, SSCURL) :- required(CourseCode), course(CourseCode, _, _, Name, SSCURL).
 question(Taken, ['Which',courses,am,'I',eligible,for,?], CourseCode, Name, SSCURL) :- call_eligible(Taken, CourseCode, Name, SSCURL).
-% Not working
-question(_, ['What',are,the,prerequisites,for,X,?], CourseCode, Name, SSCURL) :- course_prerequisites(X, Prereqs), code_to_object(Prereqs, CourseCode, Name, SSCURL).
-question(_, ['List',the,'SSC','URLs',for,:,X], CourseCode, Name, SSCURL) :- code_to_object(X, CourseCode, Name, SSCURL).
+question(_, ['What',are,the,prerequisites,for,'CPSC',X,?], CourseCode, Name, SSCURL) :- atom_concat('CPSC ', X, Res), course_prerequisites(Res, Prereqs), code_to_object(Prereqs, CourseCode, Name, SSCURL).
 
 % required(X) is true if a CPSC course is required for a computer science major
 required('CPSC 110').
@@ -125,7 +122,7 @@ eligible_courses([_ | Rest], Taken, Eligible) :-
 eligible_courses(Rest, Taken, Eligible).
 
 % TODO: 2. Given all the courses a person can take (output of 1) (filter courses by year level)
-% Example query: courses_with_level(1, Courses, SSCURL).
+% Example query: courses_with_level(1, Course, Name, SSCURL).
 courses_with_level(Level, Course, Name, SSCURL) :- course(Course, Level, _, Name, SSCURL).
 
 % TODO: 3. For any specified course, list prerequisites
@@ -133,7 +130,7 @@ courses_with_level(Level, Course, Name, SSCURL) :- course(Course, Level, _, Name
 course_prerequisites(Course, Prereqs) :- course(Course, _, Prereqs, _, _).
 
 % Given list of courses (prereq list) output the SSC URL and title along with the course code
-% Example query: code_to_object(['CPSC 121, CPSC 210'], CourseCode, Name, SSCURL)
+% Example query: code_to_object(['CPSC 121', 'CPSC 110'], Code, Name, Link).
 code_to_object([CourseCode|_], CourseCode, Name, SSCURL) :-
     course(CourseCode, _, _, Name, SSCURL).
 % Keep going
@@ -143,5 +140,5 @@ code_to_object([_|Rest], CourseCode, Name, SSCURL) :-
 code_to_object([],_,_,_).
 
 % TODO 4. Given a year level, show all required courses
-% Example query: required_by_year(1, CourseCode, Name, SSCURL)
+% Example query: required_by_year(1, CourseCode, Name, SSCURL).
 required_by_year(Level, CourseCode, Name, SSCURL) :- required(CourseCode), course(CourseCode, Level, _, Name, SSCURL).
